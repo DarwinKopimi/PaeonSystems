@@ -31,6 +31,9 @@ private PatientRetrievalRepository repository;
 			}
 			
 		}
+		else {
+			listOfPatients.add(patient);
+		}
 		return listOfPatients;
 	}
 	
