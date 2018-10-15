@@ -32,7 +32,11 @@ private PatientRetrievalRepository repository;
 			
 		}
 		else {
+			patient.setAge(45);
+			patient.setFirstName("Bob");
+			patient.setLastName("Morgy");
 			listOfPatients.add(patient);
+			
 		}
 		return listOfPatients;
 	}
