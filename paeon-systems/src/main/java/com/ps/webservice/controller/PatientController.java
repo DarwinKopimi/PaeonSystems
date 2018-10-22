@@ -1,5 +1,6 @@
 package com.ps.webservice.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,8 +21,14 @@ public class PatientController {
 	PatientDataMapper dp = new PatientDataMapper();
 	@RequestMapping(value="/users",method = RequestMethod.GET)
 	    public List<Patient> allPatient() {
-	     List<Patient> patients =  dp.mappedPatientInformation();
-	     if(patients.isEmpty()) {
+	     List<Patient> patients = null;
+		try {
+			patients = dp.mappedPatientInformation();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	     if(patients ==null || patients.isEmpty()) {
 	    	 System.out.println(HttpStatus.BAD_REQUEST + "Hit Endpoint"); ;
 	     }
 		 return patients;

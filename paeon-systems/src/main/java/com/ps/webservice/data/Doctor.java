@@ -2,9 +2,7 @@ package com.ps.webservice.data;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 public class Doctor implements UserStrategy {
 	private String firstName;
 	private String lastName;

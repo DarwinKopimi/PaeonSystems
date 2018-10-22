@@ -1,44 +1,57 @@
 package com.ps.webservice.data.mapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 
+import com.ps.webservice.data.DataRetrievalPerRequest;
 import com.ps.webservice.data.Patient;
-import com.ps.webservice.data.PatientRetrievalRepository;
 
 
 
 public class PatientDataMapper {
 
-@Autowired
-private PatientRetrievalRepository repository;
+	@Autowired
+	DataRetrievalPerRequest data;
+	
 
-	public List<Patient> mappedPatientInformation() {
+	public List<Patient> mappedPatientInformation() throws SQLException {
+		ResultSet retrievedDataFromDatabase;
 		List<Patient> listOfPatients = new ArrayList<>();
 		Patient patient =  new Patient();
-		if(repository!= null && !repository.findAll().isEmpty()) {
-			for(Patient mapPat : repository.findAll()) {
-				patient.setAge(mapPat.getAge());
-				patient.setDateOfBirth(mapPat.getDateOfBirth());
-				patient.setFirstName(mapPat.getFirstName());
-				patient.setLastName(mapPat.getLastName());
-				patient.setHealthInsurance(mapPat.getHealthInsurance());
-				patient.setHealthRecords(mapPat.getHealthRecords());
-				listOfPatients.add(patient);
-			}
-			
-		}
-		else {
-			patient.setAge(45);
-			patient.setFirstName("Bob");
-			patient.setLastName("Morgy");
+			retrievedDataFromDatabase = data.retrieveAllDataBasedOnRequest("patient");
+			while(retrievedDataFromDatabase.next()) {
+				String pid = retrievedDataFromDatabase.getString("PID");
+				String firstName = retrievedDataFromDatabase.getString("FIRST_NAME");
+				String lastName = retrievedDataFromDatabase.getString("LAST_NAME");
+				int age = retrievedDataFromDatabase.getInt("AGE");
+				
+				createMappedObject(pid,firstName,lastName,age,patient);
+					}
 			listOfPatients.add(patient);
-			
-		}
+	if(listOfPatients.isEmpty()) {
+		testClient(patient, listOfPatients);
+	}
+		
 		return listOfPatients;
+	}
+
+	private void testClient(Patient patient,List<Patient> listOfPatients) {
+		patient.setAge(45);
+		patient.setFirstName("Bob");
+		patient.setLastName("Morgy");
+		listOfPatients.add(patient);
+		}
+	
+	
+
+	private void createMappedObject(String pid, String firstName, String lastName, int age, Patient patient) {
+		patient.setFirstName(firstName);
+		patient.setLastName(lastName);
+		patient.setAge(age);
 	}
 	
 }
