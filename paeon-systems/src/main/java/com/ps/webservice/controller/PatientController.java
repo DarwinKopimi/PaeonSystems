@@ -38,4 +38,19 @@ public class PatientController {
 	 public String helloWorld() {
 	 	  return  "Hello World";
 	 }
+	 
+	 @RequestMapping(value="/users",method = RequestMethod.GET)
+	    public List<Patient> findSpecifcPatient() {
+	     List<Patient> patients = null;
+		try {
+			patients = dp.mappedPatientInformation();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	     if(patients ==null || patients.isEmpty()) {
+	    	 System.out.println(HttpStatus.BAD_REQUEST + "Hit Endpoint"); ;
+	     }
+		 return patients;
+	    }
 }
