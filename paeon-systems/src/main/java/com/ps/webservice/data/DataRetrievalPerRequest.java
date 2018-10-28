@@ -21,4 +21,12 @@ public class DataRetrievalPerRequest {
 		ResultSet gatheredData = state.executeQuery("SELECT * FROM "+ requestInfo);
 		return gatheredData;
 	}
+	
+	public ResultSet retrieveSpecificUser(String requestInfo, String requestUserId) throws SQLException {
+		Connection dataConnection = connect.getDatabaseConnection();
+		dataConnection.setAutoCommit(false);
+		state = dataConnection.createStatement();
+		ResultSet gatheredData = state.executeQuery("SELECT FROM "+ requestInfo+ "WHERE PID=" + requestUserId );
+		return gatheredData;
+	}
 }
