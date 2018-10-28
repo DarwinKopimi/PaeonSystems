@@ -3,13 +3,16 @@ package com.ps.webservice.data;
 import java.lang.System.Logger;
 import java.sql.*;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JDPCSqlLiteConnection {
 	Connection connect = null;
-	private final String urlConnection = "jdbc:sqlite:paeonsystems.db";
+	private final String urlConnection = "jdbc:sqlite:resources:paeonsystems.db";
 	
 	public Connection getDatabaseConnection() {
 		try {
-			if(isRetryFailed(connect)) {
+			if(!isRetryFailed(connect)) {
 			connect = DriverManager.getConnection(urlConnection);
 			}
 			}

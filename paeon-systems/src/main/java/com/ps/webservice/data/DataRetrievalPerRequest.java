@@ -6,19 +6,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DataRetrievalPerRequest {
 	
-	@Autowired
-	JDPCSqlLiteConnection connect;
-	@Autowired
+	//@Autowired
+	JDPCSqlLiteConnection connect = new JDPCSqlLiteConnection();
+
 	Statement state;
 	
 	public ResultSet retrieveAllDataBasedOnRequest(String requestInfo) throws SQLException {
 		Connection dataConnection = connect.getDatabaseConnection();
 		dataConnection.setAutoCommit(false);
 		state = dataConnection.createStatement();
-		ResultSet gatheredData = state.executeQuery("SELECT * FROM "+ requestInfo);
+		ResultSet gatheredData = state.executeQuery("SELECT * FROM"+ " "+ requestInfo +";");
 		return gatheredData;
 	}
 	
@@ -26,7 +28,7 @@ public class DataRetrievalPerRequest {
 		Connection dataConnection = connect.getDatabaseConnection();
 		dataConnection.setAutoCommit(false);
 		state = dataConnection.createStatement();
-		ResultSet gatheredData = state.executeQuery("SELECT FROM "+ requestInfo+ "WHERE PID=" + requestUserId );
+		ResultSet gatheredData = state.executeQuery("SELECT FROM"+ requestInfo+ "WHERE PID=" + requestUserId );
 		return gatheredData;
 	}
 }
