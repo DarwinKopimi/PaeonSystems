@@ -8,7 +8,7 @@ public class Doctor implements UserStrategy {
 	private String lastName;
 	private String DateOfBirth;
 	private int age;
-	private List<Patient> patients;
+	private List<Doctor> Doctors;
 	private String HealthInsurance;
 	private String userName;
 	private String password;
@@ -53,13 +53,13 @@ public class Doctor implements UserStrategy {
 	}
 
 
-	public List<Patient> getPatientRecords() {
-		return patients;
+	public List<Doctor> getDoctorRecords() {
+		return Doctors;
 	}
 
 
-	public void setPatientRecords(List<Patient> patients) {
-		this.patients = patients;
+	public void setDoctorRecords(List<Doctor> Doctors) {
+		this.Doctors = Doctors;
 	}
 
 
