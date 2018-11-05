@@ -28,7 +28,7 @@ public class DataRetrievalPerRequest {
 		Connection dataConnection = connect.getDatabaseConnection();
 		dataConnection.setAutoCommit(false);
 		state = dataConnection.createStatement();
-		ResultSet gatheredData = state.executeQuery("SELECT FROM"+ requestInfo+ "WHERE PID=" + requestUserId );
+		ResultSet gatheredData = state.executeQuery("SELECT FIRST_NAME LAST_NAME FROM"+ " " + requestInfo+ "WHERE PID=" + " "+requestUserId+ ";" );
 		return gatheredData;
 	}
 }
