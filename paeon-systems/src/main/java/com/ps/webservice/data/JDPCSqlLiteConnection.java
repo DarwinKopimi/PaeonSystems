@@ -16,7 +16,7 @@ public class JDPCSqlLiteConnection {
 	public Connection getDatabaseConnection() {
 		final String urlHost = "//paeonsystemsdb.c7vhptgacbd2.us-east-1.rds.amazonaws.com";
 		final String userName = "psdb";
-		final String password = "cookie92";
+		final String password = "cookie92"; 
 		final String database = "paeonsystemsdb";
 		try { 
 			if(!isRetryFailed(connect)) {
